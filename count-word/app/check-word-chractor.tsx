@@ -1,4 +1,73 @@
 'use client'
+// import './globals.css'
+// import React, { useEffect, useRef, useState } from 'react';
+
+// const CheckWordsLength = () => {
+//   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+//   const [val, setVal] = useState<string>('');
+
+//   const textAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+//     setVal(event.target.value);
+//   };
+
+//   useEffect(() => {
+//     if (textareaRef && textareaRef.current) {
+//       textareaRef.current.style.height = '0px';
+//       const scrollHeight = textareaRef.current.scrollHeight;
+//       textareaRef.current.style.height = scrollHeight + 'px';
+//     }
+//   }, [val]);
+
+//   return (
+//     <>
+//       <div className='container mx-auto mt-10 bg-blue-100'>
+       
+//         <h1 className='text-5xl font-bold mb-10 text-center text-blue-900'>
+//           Word Chracter Count Application
+//         </h1>
+//         <div className='flex flex-col items-center'>
+//           <textarea
+//             name='message'
+//             id='message'
+//             ref={textareaRef}
+//             className='px-3 py-2 w-40 border-purple-600 border rounded-full'
+//             style={styles.textareaDefaultStyle}
+//             onChange={textAreaChange}
+//             placeholder='Enter text here...'
+//           ></textarea>
+//           <div className='mt-10 flex flex-col md:flex-row'>
+//             <div className='mr-2'>
+//               <h3 className='text-blue-800 text-3xl font-semibold'>
+//                 With Spaces: {val.length}
+//               </h3>
+//             </div>
+//             <div>
+//               <h3 className='px-20 text-blue-800 text-3xl font-semibold'>
+//                 Without Spaces: {val.replace(/\s/g, '').length}
+//               </h3>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// const styles: { [name: string]: React.CSSProperties } = {
+//   textareaDefaultStyle: {
+//     padding: 5,
+//     width: '96%',
+//     height: 'auto',
+//     minHeight: '450px',
+//     border: '10px solid #0dc2ed',
+//     borderRadius: '25px',
+//     outline: 'none',
+//     resize: 'none',
+//     backgroundColor: '#eee',
+//   },
+// };
+
+// export default CheckWordsLength;
 import './globals.css'
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -8,6 +77,18 @@ const CheckWordsLength = () => {
 
   const textAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setVal(event.target.value);
+  };
+
+  const countWords = (text: string) => {
+    return text.trim().split(/\s+/).length;
+  };
+
+  const countLines = (text: string) => {
+    return text.trim().split(/\r?\n/).length;
+  };
+
+  const countParagraphs = (text: string) => {
+    return text.trim().split(/\n\n+/).length;
   };
 
   useEffect(() => {
@@ -23,8 +104,11 @@ const CheckWordsLength = () => {
       <div className='container mx-auto mt-10 bg-blue-100'>
        
         <h1 className='text-5xl font-bold mb-10 text-center text-blue-900'>
-          Word Chracter Count Application
+          Online Word Counter Application
         </h1>
+        <div className='ml-10 mb-5'>
+          <h2 className='text-xl text-blue-500'>Write text or paste your artical here. It will count word, lines, paragraph, count chracter with spaces and without spaces.</h2>
+        </div>
         <div className='flex flex-col items-center'>
           <textarea
             name='message'
@@ -42,8 +126,23 @@ const CheckWordsLength = () => {
               </h3>
             </div>
             <div>
-              <h3 className='px-20 text-blue-800 text-3xl font-semibold'>
+              <h3 className='px-5 text-blue-800 text-3xl font-semibold'>
                 Without Spaces: {val.replace(/\s/g, '').length}
+              </h3>
+            </div>
+            <div>
+            <h3 className='text-blue-800 text-3xl font-semibold px-5'>
+                Words: {countWords(val)}
+              </h3>
+            </div>
+            <div>
+            <h3 className='text-blue-800 text-3xl font-semibold px-5 '>
+                Lines: {countLines(val)} 
+              </h3>
+            </div>
+            <div>
+            <h3 className='text-blue-800 text-3xl font-semibold px-5'>
+                Paragraphs: {countParagraphs(val)}
               </h3>
             </div>
           </div>
